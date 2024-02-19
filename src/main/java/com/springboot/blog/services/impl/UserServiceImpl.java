@@ -1,6 +1,8 @@
 package com.springboot.blog.services.impl;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,6 @@ import com.springboot.blog.entites.User;
 import com.springboot.blog.payloads.UserDto;
 import com.springboot.blog.repositories.UserRepo;
 import com.springboot.blog.services.UserService;
-
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,25 +28,37 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto updateUser(UserDto userDto, Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userRepo.findById(userId).orElse(null);
+		user.setName(userDto.getName());
+		user.setEmail(userDto.getEmail());
+		user.setPassword(userDto.getPassword());
+		user.setAbout(userDto.getAbout());
+
+		User updatedUser = userRepo.save(user);
+		UserDto userToUserDto = userToUserDto(updatedUser);
+
+		return userToUserDto;
 	}
 
 	@Override
 	public UserDto getUserById(Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		User user = userRepo.findById(userId).orElse(null);
+
+		return userToUserDto(user);
 	}
 
 	@Override
 	public List<UserDto> getAlluser() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users = userRepo.findAll();
+		List<UserDto> collect = users.stream().map(user->userToUserDto(user)).collect(Collectors.toList());
+		return collect;
 	}
 
 	@Override
 	public void deleteUser(Integer userId) {
-		// TODO Auto-generated method stub
+		User user = userRepo.findById(userId).orElse(null);
+		userRepo.delete(user);
 
 	}
 
