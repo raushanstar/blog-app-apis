@@ -1,18 +1,27 @@
 package com.springboot.blog.payloads;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 //@NoArgsConstructor
 //@Setter
 //@Getter
 public class UserDto {
 
 	private int id;
-
+	
+    @NotEmpty(message = "name should not be empty")
 	private String name;
-
+    
+    @Email(message = "email should be valid")
 	private String email;
-
+    
+    @NotEmpty
+    @Size(min=5,max=15,message = "password should be min 5 and max 15")
 	private String password;
-
+    
+    @NotEmpty(message = "about should not be empty")
 	private String about;
 
 	public int getId() {
