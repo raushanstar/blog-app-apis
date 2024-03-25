@@ -2,8 +2,8 @@ package com.springboot.blog.services;
 
 import java.util.List;
 
-import com.springboot.blog.entites.Post;
 import com.springboot.blog.payloads.PostDto;
+import com.springboot.blog.payloads.PostResponse;
 
 public interface PostService {
 	// create post
@@ -17,10 +17,10 @@ public interface PostService {
 	void deletePost(Integer postId);
 
 	// get all post
-	List<PostDto> getAllpost();
+	PostResponse getAllpost(Integer pageSize, Integer pageNumber,String sortBy, String sortDir);
 
 	// get single post
-	Post getPostById();
+	PostDto getPostById(Integer postId);
 
 	// get post by category
 	List<PostDto> getPostByCategory(Integer categoryId);

@@ -6,5 +6,6 @@
 # implementation till now
 - setup spring boot
 - configure with MySql database
-- post api created for create user entity
-	- http://localhost:8080/api/users/
+- User Controller
+- Category controller 
+- Post Controller
