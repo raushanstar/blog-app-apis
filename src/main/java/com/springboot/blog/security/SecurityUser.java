@@ -20,6 +20,7 @@ public class SecurityUser implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+		System.out.println("getauth...");
 		return user.getRoles()
 		        .stream()
 		        .map(role -> new SecurityRoles(role))
@@ -36,6 +37,7 @@ public class SecurityUser implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
+		System.out.println("getusername...+"+user.getEmail());
 		return user.getEmail();
 	}
 

@@ -2,11 +2,17 @@ package com.springboot.blog.services.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.springboot.blog.entites.Role;
 import com.springboot.blog.entites.User;
 import com.springboot.blog.exceptions.ResourcesNotFoundException;
 import com.springboot.blog.payloads.UserDto;
+import com.springboot.blog.repositories.RoleRepo;
 import com.springboot.blog.repositories.UserRepo;
 import com.springboot.blog.services.UserService;
 
@@ -14,7 +20,15 @@ import com.springboot.blog.services.UserService;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
+	private ModelMapper modelMapper;
+	@Autowired
 	private UserRepo userRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private RoleRepo roleRepo;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -61,6 +75,7 @@ public class UserServiceImpl implements UserService {
 		userRepo.delete(user);
 
 	}
+	
 
 	public User dtoToUser(UserDto userDto) {
 
@@ -87,5 +102,6 @@ public class UserServiceImpl implements UserService {
 		return userDto;
 
 	}
+	
 
 }
